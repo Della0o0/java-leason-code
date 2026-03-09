@@ -35,7 +35,7 @@ public class UserController {
     @Resource(name = "userServiceImpl")
     private UserService userService;
 
-    //2、第二种方式，构造器注入
+    //2、第二种方式，构造器注入 测试git
     //private final UserService userService;
     //@Autowired // 当前类中只存在一个构造函数，可以省略
     //public UserController(UserService userService) {
