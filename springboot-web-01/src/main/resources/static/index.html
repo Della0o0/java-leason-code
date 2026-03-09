@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ant-design-vue@4.2.6/dist/reset.min.css">
+</head>
+<body>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/dayjs/dayjs.min.js"></script>
+    <script src="https://unpkg.com/dayjs/plugin/customParseFormat.js"></script>
+    <script src="https://unpkg.com/dayjs/plugin/weekday.js"></script>
+    <script src="https://unpkg.com/dayjs/plugin/localeData.js"></script>
+    <script src="https://unpkg.com/dayjs/plugin/weekOfYear.js"></script>
+    <script src="https://unpkg.com/dayjs/plugin/weekYear.js"></script>
+    <script src="https://unpkg.com/dayjs/plugin/advancedFormat.js"></script>
+    <script src="https://unpkg.com/dayjs/plugin/quarterOfYear.js"></script>
+<!--    <script src="js/antd.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/ant-design-vue@4.2.6/dist/antd.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.11.0/axios.min.js" integrity="sha512-h9644v03pHqrIHThkvXhB2PJ8zf5E9IyVnrSfZg8Yj8k4RsO4zldcQc4Bi9iVLUCCsqNY0b4WXVV4UB+wbWENA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <div id="app">
+        {{ message }}
+        <a-button type="primary">{{ message }}</a-button>
+        <div v-for="item in dataSource">{{item.name}}</div>
+        <div v-for="item in columns">{{item.title}}</div>
+        <div>
+            <a-table :data-source="dataSource" :columns="columns" />
+        </div>
+        <button @click="count++">
+            Count is: {{ count }}
+        </button>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue
+        const app = createApp({
+            setup(){
+                const message = ref('Hello vue!')
+                let dataSource = ref([])
+                const columns = ref([
+                    {
+                        title: 'ID',
+                        dataIndex: 'id',
+                        key: 'id',
+                    },
+                    {
+                        title: '账户',
+                        dataIndex: 'username',
+                        key: 'username',
+                    },
+                    {
+                        title: '密码',
+                        dataIndex: 'password',
+                        key: 'password',
+                    },
+                    {
+                        title: '姓名',
+                        dataIndex: 'name',
+                        key: 'name',
+                    },
+                    {
+                        title: '年龄',
+                        dataIndex: 'age',
+                        key: 'age',
+                    },
+                    {
+                        title: '更新日期',
+                        dataIndex: 'updateTime',
+                        key: 'updateTime',
+                    },
+                ])
+
+
+                axios.get('http://localhost:8080/list').then(res => {
+                    console.log(res, 'res')
+                    dataSource.value = res.data
+                })
+                console.log('dataSource:', dataSource.value);
+                console.log('columns:', columns);
+                console.log(axios, "axios")
+                return {
+                    count: ref(0),
+
+                    columns,
+                    dataSource,
+                    message
+                }
+            }
+        })
+        app.use(antd)
+        app.mount("#app")
+    </script>
+</body>
+</html>
