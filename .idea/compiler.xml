@@ -8,13 +8,20 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="my-maven-project" />
-        <module name="springboot-web-quickstart" />
         <module name="springboot-web-01" />
+        <module name="jdbc-demo" />
+        <module name="springboot-mybatis-quickstart" />
+        <module name="springboot-web-quickstart" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="demo1" target="17" />
+      <module name="jdbc-demo2" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="springboot-mybatis-quickstart" options="-parameters" />
       <module name="springboot-web-01" options="-parameters" />
       <module name="springboot-web-quickstart" options="-parameters" />
     </option>
